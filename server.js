@@ -14,8 +14,8 @@ app.use(bodyParser.json());
 // ROUTER
 // pointing server to "route" files.
 
-// require("./app/routing/apiRoutes")(app);
-// require("./app/routing/htmlRoutes")(app);
+require("./app/routing/apiRoutes")(app);
+require("./app/routing/htmlRoutes")(app);
 
 // =============================================================================
 // LISTENER

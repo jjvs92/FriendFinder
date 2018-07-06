@@ -10,7 +10,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>  
         <!-- linking stylesheet -->
         <link rel="stylesheet" type="text/css" href="style/stylesheet.css">
-      
+
     </head>
     <body>
         <div class="container">
@@ -36,7 +36,7 @@
                         <div class="questionaire"></div>
                         <br>
                                                                                               
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
                     </form>
             
                     <footer>
@@ -47,7 +47,38 @@
         </div>        
     </body>
     <script type="text/javascript">
-        var test = "Whatsup";
-        $(".questionaire").append(test);
+        var value= "";
+        var tenQuestions=[{
+            question: "1. You like like eating seafood on Wednesdays",
+            id: 1,
+        },{
+            question: "2. You can eat a whole ball of cheese on your own",
+            id: 2
+        },{
+            question: "3. You enjoy playing video games",
+            id: 3
+        }];
+        // Function that will display questions and answers 
+        function showMagic(){
+            for(var i=0; i<tenQuestions.length; i++){
+                $(".questionaire").append(tenQuestions[i].question + "<br>");
+                $(".questionaire").append(`<input type="radio" name=${tenQuestions[i].id} value=1 class= "answers">1 Strongly disagree</> <input type="radio" name=${tenQuestions[i].id} value=2 class= "answers">2</><input type="radio" name=${tenQuestions[i].id} value=3 class= "answers">3</><input type="radio" name=${tenQuestions[i].id} value=4 class= "answers">4</><input type="radio" name=${tenQuestions[i].id} value=5 class= "answers">5 Strongly agree</> <br><br>`);
+            }
+        }
+        showMagic();
+
+
+        // On click even that will take user's answers upon hitting submit
+        $("#submitButton").on("click",function(){
+            event.preventDefault();
+            // var firstValue= $(`input[name=${tenQuestions[i].id}]:checked`).val();
+            // console.log(firstValue);
+            for(var i=0; i<tenQuestions.length; i++){
+                value = $(`input[name=${tenQuestions[i].id}]:checked`).val();
+                value = parseInt(value);
+                value+= value;
+            }
+            console.log(value);
+        })
     </script>
 </html>
