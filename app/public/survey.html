@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">        
+        <title>Friend Finder Survey</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>  
+        <!-- linking stylesheet -->
+        <link rel="stylesheet" type="text/css" href="style/stylesheet.css">
+      
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 id="title">Survey Questions</h1>
+                    <br>
+                    <h4>About You</h4>
+            
+                    <form>
+                        <div class="user-input">
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Name (Required)</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Link to Photo Image (Required)</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="questionaire"></div>
+                        <br>
+                                                                                              
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+            
+                    <footer>
+                        <p><a href="../api/friends">API Friends list</a><span> | <a href="https://github.com/jjvs92/FriendFinder">GitHub Repo</a></span></p>
+                    </footer>
+                </div>
+            </div>
+        </div>        
+    </body>
+    <script type="text/javascript">
+        var test = "Whatsup";
+        $(".questionaire").append(test);
+    </script>
+</html>
