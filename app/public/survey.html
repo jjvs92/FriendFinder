@@ -25,11 +25,11 @@
 
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Name (Required)</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                <input type="text" class="form-control name-input" id="exampleInputEmail1" aria-describedby="emailHelp">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Link to Photo Image (Required)</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1">
+                                <input type="text" class="form-control photo-input" id="exampleInputPassword1">
                             </div>
                         </div>
                         <br>
@@ -47,7 +47,9 @@
         </div>        
     </body>
     <script type="text/javascript">
-        var value= "";
+        var currentURL = window.location.origin;
+        var userAnswer= [];
+        var newUser= {};
         var tenQuestions=[{
             question: "1. You like like eating seafood on Wednesdays",
             id: 1,
@@ -57,6 +59,27 @@
         },{
             question: "3. You enjoy playing video games",
             id: 3
+        },{
+            question: "4. You prefer driving a truck rather than a car",
+            id: 4
+        },{
+            question: "5. You think fishing and hunting are evil",
+            id: 5
+        },{
+            question: "6. You are passionate about a sports team",
+            id: 6
+        },{
+            question: "7. You can eat a burger at any moment in the day",
+            id: 7
+        },{
+            question: "8. You prefer small town rather than big city",
+            id: 8
+        },{
+            question: "9. You enjoy pool parties in the winter",
+            id: 9
+        },{
+            question: "10. This survey has helped you get to know yourself better",
+            id: 10
         }];
         // Function that will display questions and answers 
         function showMagic(){
@@ -67,18 +90,45 @@
         }
         showMagic();
 
-
-        // On click even that will take user's answers upon hitting submit
-        $("#submitButton").on("click",function(){
+        // On click even that will take user's answers upon hitting
+        $("body").on("click", "#submitButton",function(){
             event.preventDefault();
-            // var firstValue= $(`input[name=${tenQuestions[i].id}]:checked`).val();
-            // console.log(firstValue);
+            var newUser = $(".name-input").val();
+            var newUserPhoto = $(".photo-input").val().trim();
+
             for(var i=0; i<tenQuestions.length; i++){
-                value = $(`input[name=${tenQuestions[i].id}]:checked`).val();
-                value = parseInt(value);
-                value+= value;
+                var newValue = $(`input[name=${tenQuestions[i].id}]:checked`).val();
+                if(!newValue){
+                    alert("Please answer all the questions");
+                    return;
+                }
+                userAnswer.push(newValue);
+                
             }
-            console.log(value);
+            console.log(userAnswer);
+            newUserInfo = {
+                name: newUser,
+                photo: newUserPhoto,
+                scores: userAnswer
+            }
+
+            $.post("/api/friends", newUserInfo, function(data){  
+              
+            })
+            // console.log(userAnswer);
+
+            $.ajax({url: currentURL + "/api/friends", method: "GET"}).then(function(listOfFriends){
+                var scoresDif = 0;
+                function findCompatibility(newUserInfo){
+                    console.log(newUserInfo);
+                }
+                
+                
+            
+                    })
+
+            userAnswer = [];
+            
         })
     </script>
 </html>
