@@ -48,8 +48,8 @@
     </body>
     <script type="text/javascript">
         var currentURL = window.location.origin;
-        var userAnswer= [];
-        var newUser= {};
+        var userAnswer= [];  
+        var newUserInfo= {};
         var tenQuestions=[{
             question: "1. You like like eating seafood on Wednesdays",
             id: 1,
@@ -93,8 +93,9 @@
         // On click even that will take user's answers upon hitting
         $("body").on("click", "#submitButton",function(){
             event.preventDefault();
-            var newUser = $(".name-input").val();
+            var newUserName = $(".name-input").val();
             var newUserPhoto = $(".photo-input").val().trim();
+            var newScore = "";
 
             for(var i=0; i<tenQuestions.length; i++){
                 var newValue = $(`input[name=${tenQuestions[i].id}]:checked`).val();
@@ -105,9 +106,9 @@
                 userAnswer.push(newValue);
                 
             }
-            console.log(userAnswer);
+            // console.log(userAnswer);
             newUserInfo = {
-                name: newUser,
+                name: newUserName,
                 photo: newUserPhoto,
                 scores: userAnswer
             }
@@ -118,14 +119,42 @@
             // console.log(userAnswer);
 
             $.ajax({url: currentURL + "/api/friends", method: "GET"}).then(function(listOfFriends){
-                var scoresDif = 0;
-                function findCompatibility(newUserInfo){
-                    console.log(newUserInfo);
+                console.log(listOfFriends);
+                console.log(newUserInfo);
+                
+                function scoring(newUserInfo) {
+                //totalling up each friends scores in the server
+                var score = 0;
+                for (var j = 0; j < newUserInfo.scores.length; j++) {
+                    score += parseInt(newUserInfo.scores[j]);
                 }
-                
-                
+                // console.log(score);
+            }
+            scoring(newUserInfo);
             
-                    })
+            console.log(score);
+            var differenceArrayNum = [];
+
+            function sortNumber(a,b) {
+                return a.difference - b.difference;
+            }
+
+            for (var i = 0; i < listOfFriends.length; i++) {
+                console.log(listOfFriends[i].name)
+                console.log("score: ", scoring(listOfFriends[i]))
+                var difference = Math.abs(Newscore - scoring(listOfFriends[i]));
+                var coupled = {
+                    difference: difference,
+                    friend: listOfFriends[i]
+                };
+                differenceArrayNum.push(coupled)
+            }
+            differenceArrayNum.sort(sortNumber)
+
+            console.log(differenceArrayNum)
+            console.log(differenceArrayNum[0].friend.name)                          
+          
+            })
 
             userAnswer = [];
             
