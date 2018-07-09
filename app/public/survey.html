@@ -48,24 +48,24 @@
                     </button> -->
                     
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
+                    <div class="modal" tabindex="-1" role="dialog">`    1
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="mostCompatible" id="exampleModalCenterTitle"></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <h5 class="modal-title" id="mostCompatible"></h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
-                            </button>
+                              </button>
                             </div>
                             <div class="modal-body">
-                            ...
+                              <div id= "mostCompatiblePhoto"></div>
                             </div>
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-secondary" id="close-button" data-dismiss="modal">Close</button>
                             </div>
+                          </div>
                         </div>
-                        </div>
-                    </div>                    
+                      </div>                 
                 </div>
             </div>
         </div>        
@@ -112,6 +112,12 @@
                 $(".questionaire").append(`<input type="radio" name=${tenQuestions[i].id} value=1 class= "answers">1 Strongly disagree</> <input type="radio" name=${tenQuestions[i].id} value=2 class= "answers">2</><input type="radio" name=${tenQuestions[i].id} value=3 class= "answers">3</><input type="radio" name=${tenQuestions[i].id} value=4 class= "answers">4</><input type="radio" name=${tenQuestions[i].id} value=5 class= "answers">5 Strongly agree</> <br><br>`);
             }
         }
+
+        function clearButtons(){
+            for(var i=0; i<tenQuestions.length; i++){
+                $(`input[name=${tenQuestions[i].id}]`).prop('checked',false);
+            }
+        }
         showMagic();
 
         // On click even that will take user's answers upon hitting
@@ -119,6 +125,7 @@
             event.preventDefault();
             var newUserName = $(".name-input").val();
             var newUserPhoto = $(".photo-input").val().trim();
+
 
             for(var i=0; i<tenQuestions.length; i++){
                 var newValue = $(`input[name=${tenQuestions[i].id}]:checked`).val();
@@ -163,6 +170,7 @@
                 return a.difference - b.difference;
             }
 
+
             for (var i = 0; i < listOfFriends.length; i++) {
                 
                 for (var j=0; j<listOfFriends[i].scores.length; j++){
@@ -187,8 +195,10 @@
             differenceArrayNum.sort(sortNumber);
 
             console.log(differenceArrayNum) ;
-            console.log(differenceArrayNum[0].friend.name); 
-            $(".mostCompatible").text(differenceArrayNum[0].friend.name)         
+            console.log(differenceArrayNum[1].friend.name); 
+            $("#mostCompatible").text(differenceArrayNum[1].friend.name) 
+            $("#mostCompatiblePhoto").append(`<img src="${differenceArrayNum[1].friend.photo}" alt= "Friend's photo" style="width:200px;height:300px;">`)
+            $(".modal").modal("show")        
 
           
             })
@@ -196,5 +206,14 @@
             userAnswer = [];
             
         })
+
+        $("body").on("click", "#close-button", function(){
+            clearButtons();
+            $("#mostCompatiblePhoto").replaceWith(`<div id="mostCompatiblePhoto"></div>`);
+            $(".name-input").val("");
+            $(".photo-input").val("");              
+        })
+
+              
     </script>
 </html>
